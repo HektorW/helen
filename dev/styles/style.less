@@ -1,0 +1,599 @@
+
+///////////
+// Fonts //
+///////////
+@font-face {
+  font-family: HelveticaNeue;
+  src: url(../fonts/HelveticaNeue-UltraLight.otf);
+}
+@font-face {
+  font-family: BergamotOrnaments;
+  src: url(../fonts/BergamotOrnaments.ttf);
+}
+
+
+///////////////
+// Variables //
+///////////////
+// Header
+@header-height: 70px;
+@transition-time: 1s;
+@header-background-small: rgba(255,255,255,0.2);
+@header-background: rgba(255,255,255,0.8);
+// Page
+@page-background-color: #FFF;
+@page-header-color: #FFF;
+@page-header-background-color: rgba(65, 236, 243, 0.5);
+// Image separator
+@image-separator-height: 400px;
+
+@p-font-size: 16px;
+@p-max-width: @p-font-size*30;
+
+
+// @col1: #458385;
+// @col2: #B6FCFF;
+// @col3: #81CFD2;
+// @col4: #855637;
+// @col5: #D2A181;
+
+@col1: #81CFD2;
+@col2: #99B5FF;
+@col3: #B7D7FF;
+@col4: #7EE0AD;
+@col5: #90FFB1;
+
+
+html, body {height: 100%; margin:0;}
+
+
+// Top logo
+.top_logo {
+  z-index: -1;
+  position: fixed;
+  left:63%; top:20%;
+  width: 30%;
+
+  // transform: translateZ(0);
+  img {
+    width:100%;
+
+    // transition: opacity 0.3s;
+
+
+    &.hide {
+      display: none;
+      // opacity: 0.0;
+    }
+  }
+}
+
+
+
+// Remove #debug
+body {
+  background-image: url(../images/lekfull_2_cropped_2.jpg);
+  // background-position: center center;
+  background-size: 100%;
+  // background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+
+  background-color: @col1;
+}
+// ::selection {
+//   background: #AAA;
+// }
+
+////////////
+// HEADER //
+////////////
+header {
+  @link-color: #333;
+  @logo-width: 90px;
+
+  z-index: 10;
+  transform: translateZ(0); // Layout layering
+
+  position: fixed;
+  top:0;
+  height: @header-height;
+
+  background-color: rgba(255,255,255,0.8);
+  width: 100%;
+  left: 0;
+  border-radius: 0;
+
+
+  // Logo
+  .header_logo {
+    display: inline-block;
+    position: fixed;
+    width: @logo-width;
+    top: 0;
+    left: 0;
+  }
+
+  // Tabs
+  .tabs {
+    text-align: center;
+    margin-left: @logo-width;
+    margin-top: 20px;
+  }
+
+  // Links
+  a.tab {
+    color: @link-color;
+    text-decoration: none;
+  
+    font-family: HelveticaNeue;
+    font-size: 1.5em;
+
+    margin-right: 10px;
+
+    &:hover {
+      color: lighten(@link-color, 50%);
+    }
+  }
+
+
+  // Enables animation when toggling between Small and Regular header
+  // Regular should be the default header for browsers where javascript-scrollevent isn't used
+  // Javascript has responsibility to enable transition !after! applying <class> small
+  &.transition_enabled {
+    transition: background-color @transition-time, width @transition-time, left @transition-time, border-radius @transition-time;
+
+    a.tab {
+      transition: color 0.3s;
+    }
+  }
+
+
+  ///////////
+  // SMALL //
+  ///////////
+  &.small {
+    @link-color: #DDD;
+
+    width: 80%;
+    left: 10%;
+    border-radius: 20px;
+    background: @header-background-small;
+
+    // Logo
+    .header_logo {
+      display: none;
+    }
+
+    // Tabs
+    .tabs {
+      margin-left: 0;
+    }
+
+    a.tab {
+      color: @link-color;
+      &:hover {
+        color: lighten(@link-color, 50%);
+      }
+    }
+  }
+}
+
+
+//////////
+// PAGE //
+//////////
+.page {
+  background-color: @page-background-color;
+  // z-index: 1;
+
+  background-image: url(../images/diamond_upholstery.png);
+
+  // Header
+  .header {
+    display: block;
+    width: 100%;
+    text-align: center;
+
+    // background-image: url(../pics/blao.jpg);
+    background-color: @page-header-background-color;
+    color: @page-header-color;
+
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+
+    // Title
+    h1 {
+      font-family: HelveticaNeue;
+      font-weight: normal;
+      font-size: 4em;
+
+      margin: 0;
+    }
+  }
+
+  // Ornament
+  .ornament {
+    font-family: BergamotOrnaments;
+    font-size: 28px;
+  }
+
+  // Content
+  .content {
+    // @p-font-size: 16px;
+    // @p-max-width: @p-font-size*30;
+
+    font-family: garamond;
+    padding: 40px;
+  
+    h2, h3 {
+      margin-left: 17%;
+      &::first-letter {
+        font-size: 1.5em;
+      }
+    }
+
+    p {
+      margin-left: auto;
+      margin-right: auto;
+
+      font-size: @p-font-size;
+      max-width: @p-max-width;
+      line-height: @p-font-size + 2;
+    }    
+
+    // Lists
+    ul {
+      display: block;
+      max-width: @p-max-width;
+      margin: auto;
+      font: italic 1em Georgia, Times, serif;
+      color: #999999;
+
+      p {
+        margin: 0;
+        font: normal 1em garamond;
+        color: black;
+      }
+
+      li::first-letter {
+        font-weight: bold;
+      }
+    }
+
+    // Emphasis
+    strong {
+      color: #333;
+      font-style: italic;
+    }
+
+    .first_letter {
+      font-size: 1.5em;
+    }
+
+
+    div.ornament {
+      text-align: center;
+      font-size: 2em;
+    }
+  }
+
+  // Page specific
+  &#about {
+
+    padding-bottom: 100px; // To create some space under #contact
+
+    .page_image {
+      display: none;
+    }
+
+    .content  {
+      .first_letter {
+        font-size: 2.5em;
+        line-height: 1.0;
+        // margin: 20px 20px 0 0;
+        // float: left;
+      }      
+    }
+  }
+
+
+  ////////////
+  // Footer //
+  ////////////
+  // Dålig markup för tillfället
+  #contact {
+
+    margin: auto;
+    // margin-top: 100px;
+
+    background-color: @page-header-background-color;
+
+    width: 440px;
+    height: 440px;
+
+    border-radius: 50%;
+
+    .contact_header {
+      // display: block;
+      margin: auto;
+      color: @page-header-color;
+
+      text-align: center;
+
+      // border-radius: 50%;
+
+      h1 {
+        display: inline-block;
+
+        font-family: HelveticaNeue;
+        font-size: 3.5em;
+        font-weight: normal;
+
+        border-top: solid 1px;
+        border-bottom: solid 1px;
+        border-color: @page-header-color;
+
+        margin: 0;
+        margin-top: 0.7em;
+      }
+
+      .ornament {
+      }
+    }
+
+    .contact_content, .contact_photos {
+      font-family: garamond;
+
+      // color: white;
+
+      p {
+        text-align: center;
+        font-size: @p-font-size;
+      }
+
+      a {
+        color: #777;
+        &:visited {
+          color: #777;
+        }
+      }
+
+    }
+    
+
+    iframe.map {
+      display: block;
+      margin: auto;
+    }
+  }
+}
+
+
+
+
+
+
+// First page
+// Just a placeholder for space
+.first_page {
+  width: 100%;
+  height: 100%;
+}
+
+
+// Spacing between pages
+.image_separator {
+  width: 100%;
+  height: @image-separator-height;
+
+  background-attachment: fixed;
+  background-repeat: no-repeat;;
+  background-position: center center;
+  // background-size: cover; 
+  background-size: 100%;
+
+
+  &.coaching {
+    background-image: url(../images/ringblomma_cropped.jpg);
+    background-color: @col1;
+  }
+  &.eq {
+    background-image: url(../images/apples_4_cropped.jpg); 
+    background-color: @col2;
+  }
+  &.project {
+    background-image: url(../images/tree_cropped.jpg);
+    background-color: @col3;
+  }
+  &.about {
+    background-image: url(../images/skraddar_cropped2.jpg); 
+    background-position: center 20%;
+    background-color: @col4;
+  }
+}
+
+
+
+@media (max-width: 480px){
+  header {
+    background-color: rgba(255,255,255,0.9);
+
+    .header_logo {
+      display: none;
+    }
+
+    .tabs {
+      margin-left: 0;
+    }
+
+    a.tab {
+      font-size: 1em;
+    }
+  }
+
+  .first_page {
+    height: 40%;
+  }
+
+  .page {
+
+    .header {
+      h1 {
+        font-size: 2em;
+      }
+    }
+
+
+    #contact {
+      width: 300px;
+      border-radius: 20px;
+
+      // height: 200px;
+    }
+  }
+
+  .image_separator {
+    display: none;
+  }
+}
+
+
+
+
+
+/////////////////
+// MEDIA-Query //
+/////////////////
+@media screen and (min-width: 1050px) {
+  @page-header-width: 35%;
+  @page-min-height: 500px;
+
+
+  ////////////
+  // Header //
+  ////////////
+  header {
+    
+    // Compensate larger links with less padding top
+    .tabs {
+      margin-top: 10px;
+    }
+    // Make links a bit larger
+    a.tab {
+      margin-right: 20px;
+      font-size: 2em;
+    }
+  }
+
+  //////////
+  // PAGE //
+  //////////
+  .page {
+    min-height: @page-min-height;
+
+    // Header
+    .header {
+      // margin-left: 100px;
+
+      display: inline-block;
+      float: left;
+
+      width: @page-header-width;
+      min-height: 300px;
+
+      margin-left: 5%;
+      // margin-left: 100px;
+      // margin-top: 100px;
+
+      // border-bottom-right-radius: 0%;
+      // border-bottom-left-radius: 50%;
+      // border-top-right-radius: 50%;
+      // border-top-left-radius: 0%;
+
+      // Title
+      h1 {
+        display: inline-block;
+
+        margin-top: 106px;
+        padding-top: 7px;
+        padding-bottom: 7px;
+
+        border-color: @page-header-color;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-top-width: 1px;
+        border-top-style: solid;
+      }
+    }
+
+    // Content
+    .content {
+      margin-left: @page-header-width;
+    }
+
+    ///////////////////
+    // Page specific //
+    ///////////////////
+    // About
+    &#about {
+      .page_image {
+        display: inline-block;
+        clear: left;
+        float: left;
+
+        margin-left: 5%;
+        width: @page-header-width;
+
+        img {
+          width: 50%;
+          margin-left: 25%;
+          margin-top: 10%;
+          border-radius: 50%;
+        }  
+      }
+
+      .content .first_letter {
+        // clear: both;
+      }
+    }
+  }
+}
+
+
+
+//////////////
+// PARALLAX //
+//////////////
+// Parallax enabled
+// Alternates some CSS used
+html.parallax {
+  body {
+    background-image: none;
+  }
+
+  // Parallax - CSS
+  .para_div {
+    display: inline-block;
+    position: fixed;
+    visibility: hidden;
+    overflow: hidden;
+
+    width: 100%;
+
+    z-index: -1;
+
+    .para_img {
+      width: 100%;
+    }
+  }
+
+  .image_separator {
+    background-image: none; 
+  }
+}
+
+// Parallax images when inactivated
+.para_div {
+  display: none;
+}
