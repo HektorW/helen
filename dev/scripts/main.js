@@ -78,7 +78,7 @@ $(function() {
 
 
 (function($) {
-  window.requestAnimationFrame =
+  var requestAnimationFrame =
     window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
     window.mozRequestAnimationFrame ||
@@ -106,7 +106,7 @@ $(function() {
   }
   function requestRepaint() {
     if(!scheduled)
-      window.requestAnimationFrame(repaint);
+      requestAnimationFrame(repaint);
     scheduled = true;
   }
   function repaint() {
@@ -179,14 +179,84 @@ $(function() {
   };
 }(jQuery));
 
-// ;C:\Program Files\nodejs\
+
+// Watch links
+// Listen for scroll events / alternative poll intervall
+// On setup checks links href if they are to elements within document (#)
+// Watch for when scrolled within bounds of referenced element and 
+// add .active class to element
+// All elements which are grouped together should be in jquery-object when method is called
+//   they will behave as only one active at a time
+(function($) {
 
 
-// Cornify
-// (function(){
-//   var d=document,s=d.createElement('script');d.body.appendChild(s);
-//   s.onload=addlots=window.addlots=function(){
-//     for(var i=0;i<20;i++)cornify_add();
-//   };
-//   s.src='http://www.cornify.com/js/cornify.js';
-// })();
+
+  $.fn.watchLinks = function(settings) {
+    // Settings contains information about alternative elements to add class .active
+    settings = settings || {};
+
+    var active = null,
+        $links = this,
+        objs = [];
+
+    // Loop through elements and check their href
+    // For each link in $links
+    for(var link_n = 0, link_len = $links.length; link_n < link_len; ++link_n){
+      var link = $links[link_n],
+          href = link.attr('href');
+
+      if(typeof href === 'string' && href.indexOf('#') === 0) {
+        var watch = $(href);
+
+        objs.push({
+          $link: link,
+          $eleemnt: getElement(link),
+          $watched: watch,
+          top: watch.offset().top
+        });
+      }
+    }
+    // Sort according to top
+    objs.sort(function(a, b) {
+      return a.top > b.top;
+    });
+
+
+
+    function update() {
+      var y_value = window.innerHeight + window.pageYOffset,
+          last = null;
+
+      // For each object in objs
+      for(var object_n = 0, object_len = objs.length; object_n < object_len; ++object_n){
+        var object = objs[object_n],
+            top = object.$watched.offset().top;
+        
+        if(y_valeue > top)
+          last = object;
+        else
+          break;
+      }
+
+      if(last)
+        setActive(last);
+    }
+
+    function setActive(obj) {
+      // Only do work if it's a new object that's active
+      if(obj === active)
+        return;
+
+      active.$element.removeClass('active');
+      active = obj;
+      active.$element.addClass('active');
+    }
+
+    function getElement($link) {
+      // Return according to settings
+      if(settings.parent) {
+        return $link.parent(settings.parent);
+      }
+    }
+  };
+}(jQuery));
