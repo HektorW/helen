@@ -2,38 +2,79 @@
 "use strict";
 
 module.exports = function(grunt) {
+  require('time-grunt')(grunt);
+  require('load-grunt-tasks')(grunt);
+
   grunt.initConfig({
     app: {
       dev: 'dev',
       dist: 'dist'
+    },
+    watch: {
+      options: {
+        nospawn: false
+      },
+      styles: {
+        files: ['<%= app.dev %>/styles/*.less'],
+        tasks: ['less:dev', 'autoprefixer:dev']
+      }
     },
     less: {
       options: {
         files: [
         ]
       },
-      development: {
+      dev: {
         files: {
-          '<%= app.dev %>/main.css': '<%= app.dev %>/styles/*.less',
+          '<%= app.dev %>/styles/main.css': '<%= app.dev %>/styles/*.less',
         }
       },
       dist: {
         files: {
-          '<%= app.dist %>/main.css': '<%= app.dev %>/styles/*.less',
+          '<%= app.dist %>/styles/main.css': '<%= app.dev %>/styles/*.less',
         }
       }
     },
     autoprefixer: {
-
+      options: {
+      },
+      dev: {
+        src: '<%= app.dev %>/styles/main.css'
+      },
+      dist: {
+        src: '<%= app.dist %>/styles/main.css'
+      }
+    },
+    clean: {
+      dev: {
+      },
+      dist: {
+        files: [{
+          dot: true,
+          src: [
+            '<%= app.dist %>'
+          ]
+        }]
+      }
     }
   });
 
-  // Load tasks
-  grunt.loadNpmTasks('grunt-contrib-less');
-  grunt.loadNpmTasks('grunt-autoprefixer');
+  // grunt.registerTask('watch', [
+
+  // ]);
+
+  grunt.registerTask('dev', [
+    'less:dev',
+    'autoprefixer:dev'
+  ]);
+
+  grunt.registerTask('dist', [
+    'clean:dist',
+    'less:dist',
+    'autoprefixer:dist'
+  ]);
 
   grunt.registerTask('default', [
-    'less:dist'
-    // 'autoprefixer'
+    'dist'
   ]);
 };
