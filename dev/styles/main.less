@@ -1,3 +1,7 @@
+
+///////////
+// Fonts //
+///////////
 @font-face {
   font-family: HelveticaNeue;
   src: url(fonts/HelveticaNeue-UltraLight.otf);
@@ -6,329 +10,594 @@
   font-family: BergamotOrnaments;
   src: url(fonts/BergamotOrnaments.ttf);
 }
-html,
-body {
-  height: 100%;
-  margin: 0;
-}
+
+
+///////////////
+// Variables //
+///////////////
+// Header
+@header-height: 70px;
+@transition-time: 1s;
+@header-background-small: rgba(255,255,255,0.2);
+@header-background: rgba(255,255,255,0.8);
+// Page
+@page-background-color: #FFF;
+@page-header-color: #FFF;
+@page-header-background-color: rgba(65, 236, 243, 0.5);
+// Image separator
+@image-separator-height: 400px;
+
+@p-font-size: 16px;
+@p-max-width: @p-font-size*30;
+
+
+// @col1: #458385;
+// @col2: #B6FCFF;
+// @col3: #81CFD2;
+// @col4: #855637;
+// @col5: #D2A181;
+
+@col1: #81CFD2;
+@col2: #99B5FF;
+@col3: #B7D7FF;
+@col4: #7EE0AD;
+@col5: #90FFB1;
+
+
+html, body {height: 100%; margin:0;}
+
+
+// Top logo
 .top_logo {
   z-index: -1;
   position: fixed;
-  left: 63%;
-  top: 20%;
+  left:63%; top:20%;
   width: 30%;
+
+  // transform: translateZ(0);
+  img {
+    width:100%;
+
+    // transition: opacity 0.3s;
+
+
+    &.hide {
+      display: none;
+      // opacity: 0.0;
+    }
+  }
 }
-.top_logo img {
-  width: 100%;
-}
-.top_logo img.hide {
-  display: none;
-}
+
+
+
+// Remove #debug
 body {
   background-image: url(../images/lekfull_2_cropped_2.jpg);
+  // background-position: center center;
+  // background-size: cover;
   background-size: 100%;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  background-color: #81cfd2;
+
+  background-color: @col1;
 }
+
+////////////
+// HEADER //
+////////////
 header {
+  @link-color: #333;
+  @logo-width: 90px;
+
   z-index: 10;
-  transform: translateZ(0);
+  transform: translateZ(0); // Layout layering
+
   position: fixed;
-  top: 0;
-  height: 70px;
-  background-color: rgba(255, 255, 255, 0.8);
+  top:0;
+  height: @header-height;
+
+  background-color: rgba(255,255,255,0.8);
   width: 100%;
   left: 0;
   border-radius: 0;
+
+
+  // Logo
+  .header_logo {
+    display: inline-block;
+    position: fixed;
+    width: @logo-width;
+    top: 0;
+    left: 0;
+  }
+
+  // Tabs
+  .tabs {
+    text-align: center;
+    margin-left: @logo-width;
+    margin-top: 20px;
+  }
+
+  // Links
+  a.tab {
+    color: @link-color;
+    text-decoration: none;
+  
+    font-family: HelveticaNeue;
+    font-size: 1.5em;
+
+    margin-right: 10px;
+
+    &:hover {
+      color: lighten(@link-color, 50%);
+    }
+  }
+
+
+  // Enables animation when toggling between Small and Regular header
+  // Regular should be the default header for browsers where javascript-scrollevent isn't used
+  // Javascript has responsibility to enable transition !after! applying <class> .small
+  &.transition_enabled {
+    transition: background-color @transition-time, width @transition-time, left @transition-time, border-radius @transition-time;
+
+    a.tab {
+      transition: color 0.3s;
+    }
+  }
+
+
+  ///////////
+  // SMALL //
+  ///////////
+  &.small {
+    @link-color: #DDD;
+
+    width: 80%;
+    left: 10%;
+    border-radius: 20px;
+    background: @header-background-small;
+
+    // Logo
+    .header_logo {
+      display: none;
+    }
+
+    // Tabs
+    .tabs {
+      margin-left: 0;
+    }
+
+    a.tab {
+      color: @link-color;
+      &:hover {
+        color: lighten(@link-color, 50%);
+      }
+    }
+  }
 }
-header .header_logo {
-  display: inline-block;
-  position: fixed;
-  width: 90px;
-  top: 0;
-  left: 0;
-}
-header .tabs {
-  text-align: center;
-  margin-left: 90px;
-  margin-top: 20px;
-}
-header a.tab {
-  color: #333333;
-  text-decoration: none;
-  font-family: HelveticaNeue;
-  font-size: 1.5em;
-  margin-right: 10px;
-}
-header a.tab:hover {
-  color: #b3b3b3;
-}
-header.transition_enabled {
-  transition: background-color 1s, width 1s, left 1s, border-radius 1s;
-}
-header.transition_enabled a.tab {
-  transition: color 0.3s;
-}
-header.small {
-  width: 80%;
-  left: 10%;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.2);
-}
-header.small .header_logo {
-  display: none;
-}
-header.small .tabs {
-  margin-left: 0;
-}
-header.small a.tab {
-  color: #dddddd;
-}
-header.small a.tab:hover {
-  color: #ffffff;
-}
+
+
+//////////
+// PAGE //
+//////////
 .page {
-  background-color: #ffffff;
+  background-color: @page-background-color;
+  // z-index: 1;
+
   background-image: url(../images/diamond_upholstery.png);
+
+  // Header
+  .header {
+    display: block;
+    width: 100%;
+    text-align: center;
+
+    // background-image: url(../pics/blao.jpg);
+    background-color: @page-header-background-color;
+    color: @page-header-color;
+
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+
+    // Title
+    h1 {
+      font-family: HelveticaNeue;
+      font-weight: normal;
+      font-size: 4em;
+
+      margin: 0;
+    }
+  }
+
+  // Ornament
+  .ornament {
+    font-family: BergamotOrnaments;
+    font-size: 28px;
+  }
+
+  // Content
+  .content {
+    // @p-font-size: 16px;
+    // @p-max-width: @p-font-size*30;
+
+    font-family: garamond;
+    padding: 40px;
+  
+    h2, h3 {
+      // margin-left: 17%;
+      max-width: @p-max-width;
+      margin-left: auto;
+      margin-right: auto;
+      &::first-letter {
+        font-size: 1.5em;
+      }
+    }
+
+    p {
+      margin-left: auto;
+      margin-right: auto;
+
+      font-size: @p-font-size;
+      max-width: @p-max-width;
+      line-height: @p-font-size + 2;
+    }    
+
+    // Lists
+    ul {
+      display: block;
+      max-width: @p-max-width;
+      margin: auto;
+      font: italic 1em Georgia, Times, serif;
+      color: #999999;
+
+      p {
+        margin: 0;
+        font: normal 1em garamond;
+        color: black;
+      }
+
+      li::first-letter {
+        font-weight: bold;
+      }
+    }
+
+    // Emphasis
+    strong {
+      color: #333;
+      font-style: italic;
+    }
+
+    .first_letter {
+      font-size: 1.5em;
+    }
+
+
+    div.ornament {
+      text-align: center;
+      font-size: 2em;
+    }
+  }
+
+  // Page specific
+  &#about {
+
+    padding-bottom: 100px; // To create some space under #contact
+
+    .page_image {
+      display: none;
+    }
+
+    .content  {
+      .first_letter {
+        font-size: 2.5em;
+        line-height: 1.0;
+        // margin: 20px 20px 0 0;
+        // float: left;
+      }      
+    }
+  }
+
+
+  ////////////
+  // Footer //
+  ////////////
+  // Dålig markup för tillfället
+  #contact {
+
+    margin: auto;
+    // margin-top: 100px;
+
+    background-color: @page-header-background-color;
+
+    width: 440px;
+    height: 440px;
+
+    border-radius: 50%;
+
+    .contact_header {
+      // display: block;
+      margin: auto;
+      color: @page-header-color;
+
+      text-align: center;
+
+      // border-radius: 50%;
+
+      h1 {
+        display: inline-block;
+
+        font-family: HelveticaNeue;
+        font-size: 3.5em;
+        font-weight: normal;
+
+        border-top: solid 1px;
+        border-bottom: solid 1px;
+        border-color: @page-header-color;
+
+        margin: 0;
+        margin-top: 0.7em;
+      }
+
+      .ornament {
+      }
+    }
+
+    .contact_content, .contact_photos {
+      font-family: garamond;
+
+      // color: white;
+
+      p {
+        text-align: center;
+        font-size: @p-font-size;
+      }
+
+      a {
+        color: #777;
+        &:visited {
+          color: #777;
+        }
+      }
+
+    }
+    
+
+    iframe.map {
+      display: block;
+      margin: auto;
+    }
+  }
 }
-.page .header {
-  display: block;
-  width: 100%;
-  text-align: center;
-  background-color: rgba(65, 236, 243, 0.5);
-  color: #ffffff;
-  border-bottom-left-radius: 50%;
-  border-bottom-right-radius: 50%;
-}
-.page .header h1 {
-  font-family: HelveticaNeue;
-  font-weight: normal;
-  font-size: 4em;
-  margin: 0;
-}
-.page .ornament {
-  font-family: BergamotOrnaments;
-  font-size: 28px;
-}
-.page .content {
-  font-family: garamond;
-  padding: 40px;
-}
-.page .content h2,
-.page .content h3 {
-  margin-left: 17%;
-}
-.page .content h2::first-letter,
-.page .content h3::first-letter {
-  font-size: 1.5em;
-}
-.page .content p {
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 16px;
-  max-width: 480px;
-  line-height: 18px;
-}
-.page .content ul {
-  display: block;
-  max-width: 480px;
-  margin: auto;
-  font: italic 1em Georgia, Times, serif;
-  color: #999999;
-}
-.page .content ul p {
-  margin: 0;
-  font: normal 1em garamond;
-  color: black;
-}
-.page .content ul li::first-letter {
-  font-weight: bold;
-}
-.page .content strong {
-  color: #333;
-  font-style: italic;
-}
-.page .content .first_letter {
-  font-size: 1.5em;
-}
-.page .content div.ornament {
-  text-align: center;
-  font-size: 2em;
-}
-.page#about {
-  padding-bottom: 100px;
-}
-.page#about .page_image {
-  display: none;
-}
-.page#about .content .first_letter {
-  font-size: 2.5em;
-  line-height: 1.0;
-}
-.page #contact {
-  margin: auto;
-  background-color: rgba(65, 236, 243, 0.5);
-  width: 440px;
-  height: 440px;
-  border-radius: 50%;
-}
-.page #contact .contact_header {
-  margin: auto;
-  color: #ffffff;
-  text-align: center;
-}
-.page #contact .contact_header h1 {
-  display: inline-block;
-  font-family: HelveticaNeue;
-  font-size: 3.5em;
-  font-weight: normal;
-  border-top: solid 1px;
-  border-bottom: solid 1px;
-  border-color: #ffffff;
-  margin: 0;
-  margin-top: 0.7em;
-}
-.page #contact .contact_content,
-.page #contact .contact_photos {
-  font-family: garamond;
-}
-.page #contact .contact_content p,
-.page #contact .contact_photos p {
-  text-align: center;
-  font-size: 16px;
-}
-.page #contact .contact_content a,
-.page #contact .contact_photos a {
-  color: #777;
-}
-.page #contact .contact_content a:visited,
-.page #contact .contact_photos a:visited {
-  color: #777;
-}
-.page #contact iframe.map {
-  display: block;
-  margin: auto;
-}
+
+
+
+
+
+
+// First page
+// Just a placeholder for space
 .first_page {
   width: 100%;
   height: 100%;
 }
+
+
+// Spacing between pages
 .image_separator {
   width: 100%;
-  height: 400px;
+  height: @image-separator-height;
+
   background-attachment: fixed;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat;;
   background-position: center center;
+  // background-size: cover; 
   background-size: 100%;
+
+
+  &.coaching {
+    background-image: url(../images/ringblomma_cropped.jpg);
+    background-color: @col1;
+  }
+  &.eq {
+    background-image: url(../images/apples_4_cropped.jpg); 
+    background-color: @col2;
+  }
+  &.project {
+    background-image: url(../images/tree_cropped.jpg);
+    background-color: @col3;
+  }
+  &.about {
+    background-image: url(../images/skraddar_cropped2.jpg); 
+    background-position: center 20%;
+    background-color: @col4;
+  }
 }
-.image_separator.coaching {
-  background-image: url(../images/ringblomma_cropped.jpg);
-  background-color: #81cfd2;
-}
-.image_separator.eq {
-  background-image: url(../images/apples_4_cropped.jpg);
-  background-color: #99b5ff;
-}
-.image_separator.project {
-  background-image: url(../images/tree_cropped.jpg);
-  background-color: #b7d7ff;
-}
-.image_separator.about {
-  background-image: url(../images/skraddar_cropped2.jpg);
-  background-position: center 20%;
-  background-color: #7ee0ad;
-}
-@media (max-width: 480px) {
+
+
+
+@media (max-width: 480px){
   header {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255,255,255,0.9);
+
+    .header_logo {
+      display: none;
+    }
+
+    .tabs {
+      margin-left: 0;
+    }
+
+    a.tab {
+      font-size: 1em;
+    }
   }
-  header .header_logo {
-    display: none;
-  }
-  header .tabs {
-    margin-left: 0;
-  }
-  header a.tab {
-    font-size: 1em;
-  }
+
   .first_page {
     height: 40%;
   }
-  .page .header h1 {
-    font-size: 2em;
+
+  .page {
+
+    .header {
+      h1 {
+        font-size: 2em;
+      }
+    }
+
+
+    #contact {
+      width: 300px;
+      border-radius: 20px;
+
+      // height: 200px;
+    }
   }
-  .page #contact {
-    width: 300px;
-    border-radius: 20px;
-  }
+
   .image_separator {
     display: none;
   }
 }
+
+
+
+
+
+/////////////////
+// MEDIA-Query //
+/////////////////
 @media screen and (min-width: 1050px) {
-  header .tabs {
-    margin-top: 10px;
+  @page-header-width: 35%;
+  @page-header-max-width: 480px;
+  @page-min-height: 500px;
+
+
+  ////////////
+  // Header //
+  ////////////
+  header {
+    
+    // Compensate larger links with less padding top
+    .tabs {
+      margin-top: 10px;
+    }
+    // Make links a bit larger
+    a.tab {
+      margin-right: 20px;
+      font-size: 2em;
+    }
   }
-  header a.tab {
-    margin-right: 20px;
-    font-size: 2em;
-  }
+
+  //////////
+  // PAGE //
+  //////////
   .page {
-    min-height: 500px;
+    min-height: @page-min-height;
+
+    // Header
+    .header {
+      // margin-left: 100px;
+
+      display: inline-block;
+      float: left;
+
+      width: @page-header-width;
+      max-width: @page-header-max-width;
+      min-height: 300px;
+
+      margin-left: 5%;
+      // margin-left: 100px;
+      // margin-top: 100px;
+
+      // border-bottom-right-radius: 0%;
+      // border-bottom-left-radius: 50%;
+      // border-top-right-radius: 50%;
+      // border-top-left-radius: 0%;
+
+      // Title
+      h1 {
+        display: inline-block;
+
+        margin-top: 106px;
+        padding-top: 7px;
+        padding-bottom: 7px;
+
+        border-color: @page-header-color;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-top-width: 1px;
+        border-top-style: solid;
+      }
+    }
+
+    // Content
+    .content {
+      margin-left: @page-header-width;
+    }
+
+    ///////////////////
+    // Page specific //
+    ///////////////////
+    // About
+    &#about {
+      .page_image {
+        display: inline-block;
+        clear: left;
+        float: left;
+
+        margin-left: 5%;
+        width: @page-header-width;
+        max-width: @page-header-max-width;
+
+        img {
+          width: 50%;
+          margin-left: 25%;
+          margin-top: 10%;
+          border-radius: 50%;
+        }  
+      }
+
+      .content .first_letter {
+        // clear: both;
+      }
+    }
   }
-  .page .header {
+}
+
+
+
+//////////////
+// PARALLAX //
+//////////////
+// Parallax enabled
+// Alternates some CSS used
+html.parallax {
+  body {
+    background-image: none;
+  }
+
+  // Parallax - CSS
+  .para_div {
     display: inline-block;
-    float: left;
-    width: 35%;
-    min-height: 300px;
-    margin-left: 5%;
+    position: fixed;
+    visibility: hidden;
+    overflow: hidden;
+
+    width: 100%;
+
+    z-index: -1;
+
+    .para_img {
+      width: 100%;
+    }
   }
-  .page .header h1 {
-    display: inline-block;
-    margin-top: 106px;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    border-color: #ffffff;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-top-width: 1px;
-    border-top-style: solid;
-  }
-  .page .content {
-    margin-left: 35%;
-  }
-  .page#about .page_image {
-    display: inline-block;
-    clear: left;
-    float: left;
-    margin-left: 5%;
-    width: 35%;
-  }
-  .page#about .page_image img {
-    width: 50%;
-    margin-left: 25%;
-    margin-top: 10%;
-    border-radius: 50%;
+
+  .image_separator {
+    background-image: none; 
+    background-color: transparent;
   }
 }
-html.parallax body {
-  background-image: none;
-}
-html.parallax .para_div {
-  display: inline-block;
-  position: fixed;
-  visibility: hidden;
-  overflow: hidden;
-  width: 100%;
-  z-index: -1;
-}
-html.parallax .para_div .para_img {
-  width: 100%;
-}
-html.parallax .image_separator {
-  background-image: none;
-}
+
+// Parallax images when inactivated
 .para_div {
   display: none;
 }

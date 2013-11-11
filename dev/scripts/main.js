@@ -77,6 +77,11 @@ $(function() {
 });
 
 
+
+
+//////////////
+// Parallax //
+//////////////
 (function($) {
   var requestAnimationFrame =
     window.requestAnimationFrame ||
@@ -232,7 +237,7 @@ $(function() {
         var object = objs[object_n],
             top = object.$watched.offset().top;
         
-        if(y_valeue > top)
+        if(y_value > top)
           last = object;
         else
           break;
@@ -260,3 +265,55 @@ $(function() {
     }
   };
 }(jQuery));
+
+
+
+
+function getImagePosByScroll(obj) {
+  var y_val = window.pageYOffset + window.innerHeight;
+
+  var page_above_height = 500;
+  var page_below_height = 500;
+  var showing_space_height = 400;
+  var total_area = page_above_height + page_below_height + showing_space_height;
+
+  var page_above_top = 0;
+  var page_below_top = page_above_top + page_above_height + showing_space_height;
+
+  // How much is it allowed to move at max
+  var max_parallax_movement = 400; 
+  var min_parallax_movement = 0;
+
+  var top_visible_point = 0;
+
+  var visible = (y_val > page_above_top + page_above_height);
+
+  var image_height = 1071;
+
+
+  // Längden som den har på sig att arbeta under
+  // window.height + show_space.height
+  // 
+  // Distansen som den ska avverka
+  // above.height + show_space.height + below.height - image.height
+  // 
+  // Krav som måste uppfyllas av bilden
+  // image.height > above.height + show
+
+
+  // När show_space.top är i botten av sidan
+  // så ska image.y == page_above_top
+  
+
+
+  // När show_space.bottom är i top av sidan
+  // så ska image.y + image.height == page_below_top + page_below_height
+}
+
+
+
+
+// Page min height: 500px
+// Page separator height: 400 px
+// Total 500*2 + 400
+// = 1400

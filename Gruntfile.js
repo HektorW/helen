@@ -10,6 +10,7 @@ module.exports = function(grunt) {
       dev: 'dev',
       dist: 'dist'
     },
+
     watch: {
       options: {
         nospawn: false
@@ -17,8 +18,50 @@ module.exports = function(grunt) {
       styles: {
         files: ['<%= app.dev %>/styles/*.less'],
         tasks: ['less:dev', 'autoprefixer:dev']
+      },
+      livereload: {
+        options: {
+          livereload: '<%= connect.options.livereload %>'
+        },
+        files: [
+          '<%= app.dev %>/*.html',
+          '<%= app.dev %>/scripts/*.js',
+          '<%= app.dev %>/styles/*.css'
+        ]
       }
     },
+
+    connect: {
+      options: {
+        port: 9000,
+        livereload: 35729,
+        hostname: 'localhost'
+      },
+      livereload: {
+        options: {
+          open: true,
+          base: '<%= app.dev %>'
+        }
+      },
+      test: {
+        options: {
+          base: [
+            'test',
+            '<%= app.dev %>'
+          ]
+        }
+      }
+    },
+
+    mocha: {
+      all: {
+        options: {
+          run: true,
+          urls: [ 'http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/index.html' ]
+        }
+      }
+    },
+
     less: {
       options: {
         files: [
@@ -35,6 +78,7 @@ module.exports = function(grunt) {
         }
       }
     },
+
     autoprefixer: {
       options: {
       },
@@ -45,6 +89,7 @@ module.exports = function(grunt) {
         src: '<%= app.dist %>/styles/main.css'
       }
     },
+
     clean: {
       dev: {
       },
@@ -59,9 +104,15 @@ module.exports = function(grunt) {
     }
   });
 
-  // grunt.registerTask('watch', [
+  grunt.registerTask('test', [
+    'connect:test',
+    'mocha'
+  ]);
 
-  // ]);
+  grunt.registerTask('server', [
+    'connect:livereload',
+    'watch'
+  ]);
 
   grunt.registerTask('dev', [
     'less:dev',
