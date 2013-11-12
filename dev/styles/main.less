@@ -20,6 +20,12 @@
 @transition-time: 1s;
 @header-background-small: rgba(255,255,255,0.2);
 @header-background: rgba(255,255,255,0.8);
+
+@header-font-color: #666;
+@header-title-font-size: 24px;
+@header-padding: 16px;
+@header-height: @header-title-font-size + (@header-padding*2);
+
 // Page
 @page-background-color: #FFF;
 @page-header-color: #FFF;
@@ -86,94 +92,159 @@ body {
 // HEADER //
 ////////////
 header {
-  @link-color: #333;
-  @logo-width: 90px;
+  /////////////////
+  // Header Vars //
+  /////////////////
+//   @link-color: #333;
+//   @logo-width: 90px;
 
   z-index: 10;
-  transform: translateZ(0); // Layout layering
 
+  // Positioning
   position: fixed;
   top:0;
-  height: @header-height;
-
-  background-color: rgba(255,255,255,0.8);
-  width: 100%;
   left: 0;
-  border-radius: 0;
+  width: 100%;
 
+  color: @header-font-color;
 
-  // Logo
-  .header_logo {
-    display: inline-block;
-    position: fixed;
-    width: @logo-width;
-    top: 0;
-    left: 0;
-  }
+//   height: @header-height;
+//   background-color: rgba(255,255,255,0.8);
+//   border-radius: 0;
 
-  // Tabs
-  .tabs {
-    text-align: center;
-    margin-left: @logo-width;
-    margin-top: 20px;
-  }
-
-  // Links
-  a.tab {
-    color: @link-color;
-    text-decoration: none;
   
-    font-family: HelveticaNeue;
-    font-size: 1.5em;
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 
-    margin-right: 10px;
+  #menu_link {
+    display: block;
+    width: 100%;
 
-    &:hover {
-      color: lighten(@link-color, 50%);
+    text-align: center;
+    font-size: @header-title-font-size;
+    padding: @header-padding;
+
+    // Credit to Mr Robson - http://alwaystwisted.com/post.php?s=2012-05-12-create-a-pure-css-menu-button
+    .menu_icon {
+      display: inline-block;
+      border-bottom: 12px double; 
+      border-top: 4px solid; 
+      content:"";
+      height: 5px; 
+      width:25px;
     }
+
+    h2.menu_title {
+      margin: 0;
+      padding: 0;
+      display: inline-block;
+      font-size: inherit;
+      font-family: HelveticaNeue;
+    }    
   }
 
 
-  // Enables animation when toggling between Small and Regular header
-  // Regular should be the default header for browsers where javascript-scrollevent isn't used
-  // Javascript has responsibility to enable transition !after! applying <class> .small
-  &.transition_enabled {
-    transition: background-color @transition-time, width @transition-time, left @transition-time, border-radius @transition-time;
+  .menu_container {
+    width: 100%;
+    overflow: hidden;
 
-    a.tab {
-      transition: color 0.3s;
-    }
-  }
+    nav {
+      max-height: 0em;
+      overflow: hidden;
 
+      transition: all 500ms ease;
 
-  ///////////
-  // SMALL //
-  ///////////
-  &.small {
-    @link-color: #DDD;
-
-    width: 80%;
-    left: 10%;
-    border-radius: 20px;
-    background: @header-background-small;
-
-    // Logo
-    .header_logo {
-      display: none;
-    }
-
-    // Tabs
-    .tabs {
-      margin-left: 0;
-    }
-
-    a.tab {
-      color: @link-color;
-      &:hover {
-        color: lighten(@link-color, 50%);
+      ul {
+        padding-left: 1em;
+        padding-right: 1em;
+        list-style: none;
+      }
+      li {
+        border-bottom: solid 1px;
+        padding-top: 0.5em;
       }
     }
   }
+
+  &:hover .menu_container nav {
+    max-height: 15em;
+  }
+
+
+//   // Logo
+//   .header_logo {
+//     display: inline-block;
+//     position: fixed;
+//     width: @logo-width;
+//     top: 0;
+//     left: 0;
+//   }
+
+//   // Tabs
+//   .tabs {
+//     text-align: center;
+//     margin-left: @logo-width;
+//     margin-top: 20px;
+//   }
+
+//   // Links
+//   a.tab {
+//     color: @link-color;
+//     text-decoration: none;
+  
+//     font-family: HelveticaNeue;
+//     font-size: 1.5em;
+
+//     margin-right: 10px;
+
+//     &:hover {
+//       color: lighten(@link-color, 50%);
+//     }
+//   }
+
+
+//   // Enables animation when toggling between Small and Regular header
+//   // Regular should be the default header for browsers where javascript-scrollevent isn't used
+//   // Javascript has responsibility to enable transition !after! applying <class> .small
+//   &.transition_enabled {
+//     transition: background-color @transition-time, width @transition-time, left @transition-time, border-radius @transition-time;
+
+//     a.tab {
+//       transition: color 0.3s;
+//     }
+//   }
+
+
+//   ///////////
+//   // SMALL //
+//   ///////////
+//   &.small {
+//     @link-color: #DDD;
+
+//     width: 80%;
+//     left: 10%;
+//     border-radius: 20px;
+//     background: @header-background-small;
+
+//     // Logo
+//     .header_logo {
+//       display: none;
+//     }
+
+//     // Tabs
+//     .tabs {
+//       margin-left: 0;
+//     }
+
+//     a.tab {
+//       color: @link-color;
+//       &:hover {
+//         color: lighten(@link-color, 50%);
+//       }
+//     }
+//   }
 }
 
 
@@ -377,6 +448,7 @@ header {
 // First page
 // Just a placeholder for space
 .first_page {
+  margin-top: @header-height;
   width: 100%;
   height: 100%;
 }
@@ -418,8 +490,15 @@ header {
 
 
 @media (max-width: 480px){
+  @header-font-size: 16px;
+  @header-padding: 12px;
+  @header-height: @header-font-size + (@header-padding*2);
+
+  @header-background-color: rgba(255, 255, 255, 0.9);
+  @header-font-color: #AAA;
+
   header {
-    background-color: rgba(255,255,255,0.9);
+    background-color: @header-background-color;
 
     .header_logo {
       display: none;
@@ -456,7 +535,7 @@ header {
   }
 
   .image_separator {
-    display: none;
+    display: block;
   }
 }
 
