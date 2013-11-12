@@ -393,6 +393,8 @@ header {
   // background-size: cover; 
   background-size: 100%;
 
+  // transform: translateZ(0);
+
 
   &.coaching {
     background-image: url(../images/ringblomma_cropped.jpg);
@@ -577,23 +579,37 @@ html.parallax {
 
   // Parallax - CSS
   .para_div {
-    display: inline-block;
+
+    display: block;
     position: fixed;
-    visibility: hidden;
+  //   visibility: hidden;
+  //   overflow: hidden;
+
+  //   width: 100%;
+
+  //   z-index: -1;
+
+  //   .para_img {
+  //     width: 100%;
+  //   }
+  }
+
+  .first_page {
     overflow: hidden;
+    z-index: -5;
+  }
 
+  .para_img {
+    position: absolute;
     width: 100%;
-
-    z-index: -1;
-
-    .para_img {
-      width: 100%;
-    }
   }
 
   .image_separator {
     background-image: none; 
     background-color: transparent;
+
+    overflow: hidden;
+    position: relative;
   }
 }
 

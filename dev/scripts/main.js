@@ -1,5 +1,5 @@
 $(function() {
-  var parallax = false;
+  var parallax = true;
   var enable_header_transition;
 
   if('ontouchstart' in window) {
@@ -68,11 +68,13 @@ $(function() {
 
 
   if(parallax) {
-    $('.image_separator').parallax({
-      startOffset: 0,
-      speed: 1.2
-    });
-    $('.first_page').parallax();
+    var settings = {
+      startOffset: -100,
+      speed: 0.5
+    };
+
+    $('.image_separator').parallax(settings);
+    $('.first_page').parallax(settings);
   }
 });
 
@@ -126,13 +128,14 @@ $(function() {
   $.fn.parallax = function(settings) {
     settings = settings || {};
 
-    settings.speed = settings.speed || 1.2,
+    settings.speed = settings.speed || 0.8,
     settings.startOffset = settings.startOffset || 0,
     settings.endOffset = settings.endOffset || 0,
 
     this.each(function() {
       var $t = $(this),
-          $para = $('#para-'+$t.attr('data-para-id')), // Could load resources here
+          $para =  $t.find('.para_div'), // $('#para-'+$t.attr('data-para-id')), // Could load resources here
+          $img = $para.find('.para_img'),
           visible = false,
           speed = parseFloat($('').attr('data-para-speed') || settings.speed);
 
@@ -141,10 +144,6 @@ $(function() {
         endY: $t.offset().top + $t.height()
       };
 
-
-      var picHeight = $para.height();
-      var fillHeight = $t.height();
-      var windowHeight = window.innerHeight;
 
 
       $t.check = function(scrollValue) {

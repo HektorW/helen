@@ -393,21 +393,25 @@ html.parallax body {
 }
 
 html.parallax .para_div {
-  display: inline-block;
+  display: block;
   position: fixed;
-  visibility: hidden;
-  overflow: hidden;
-  width: 100%;
-  z-index: -1;
 }
 
-html.parallax .para_div .para_img {
+html.parallax .first_page {
+  overflow: hidden;
+  z-index: -5;
+}
+
+html.parallax .para_img {
+  position: absolute;
   width: 100%;
 }
 
 html.parallax .image_separator {
   background-image: none;
   background-color: transparent;
+  overflow: hidden;
+  position: relative;
 }
 
 .para_div {
