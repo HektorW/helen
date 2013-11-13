@@ -31,12 +31,17 @@ body {
 }
 
 body {
-  background-image: url(../images/lekfull_2_cropped_2.jpg);
-  -webkit-background-size: 100%;
-  background-size: 100%;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
   background-color: #81cfd2;
+}
+
+@media screen and (min-width: 1050px) {
+  html.no_parallax body {
+    background-image: url(../images/lekfull_2_cropped_2.jpg);
+    -webkit-background-size: 100%;
+    background-size: 100%;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+  }
 }
 
 header {
@@ -46,6 +51,8 @@ header {
   left: 0;
   width: 100%;
   color: #666666;
+  -webkit-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
 }
 
 header a {
@@ -53,34 +60,66 @@ header a {
   color: inherit;
 }
 
+header .separator {
+  position: absolute;
+  width: 0%;
+  left: 50%;
+  top: 61px;
+  color: rgba(170, 170, 170, 0.56);
+  border-top: solid 1px;
+  -webkit-transition: all 500ms ease;
+  transition: all 500ms ease;
+}
+
+header.revealed .separator {
+  width: 70%;
+  left: 15%;
+}
+
 header #menu_link {
+  z-index: 12;
+  background-color: rgba(250, 250, 250, 0.95);
   display: block;
   width: 100%;
+  height: 56px;
   text-align: center;
   font-size: 24px;
-  padding: 16px;
 }
 
 header #menu_link .menu_icon {
+  float: left;
   display: inline-block;
   border-bottom: 12px double;
   border-top: 4px solid;
   content: "";
   height: 5px;
   width: 25px;
+  margin-left: 1em;
+  margin-top: 16px;
+  -webkit-transition: all 500ms ease;
+  transition: all 500ms ease;
 }
 
 header #menu_link h2.menu_title {
-  margin: 0;
+  display: none;
   padding: 0;
-  display: inline-block;
+  margin: 0;
   font-size: inherit;
   font-family: HelveticaNeue;
+}
+
+header #menu_link img.header_logo {
+  height: 56px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -28px;
 }
 
 header .menu_container {
   width: 100%;
   overflow: hidden;
+  background-color: rgba(250, 250, 250, 0.95);
 }
 
 header .menu_container nav {
@@ -101,8 +140,45 @@ header .menu_container nav li {
   padding-top: 0.5em;
 }
 
-header:hover .menu_container nav {
+header.revealed .menu_icon {
+  -webkit-transform: rotateZ(180deg);
+  -ms-transform: rotateZ(180deg);
+  transform: rotateZ(180deg);
+}
+
+header.revealed .menu_container nav {
   max-height: 15em;
+}
+
+@media screen and (min-width: 1050px) {
+  header {
+    text-align: center;
+  }
+
+  header #menu_link {
+    display: none;
+  }
+
+  header .menu_container {
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #dddddd;
+    border-radius: 20px;
+  }
+
+  header .menu_container nav {
+    max-height: 100%;
+    margin-top: 0;
+  }
+
+  header .menu_container nav li {
+    display: inline;
+    border: 0;
+    font-family: HelveticaNeue;
+    font-size: 1em;
+  }
 }
 
 .page {
@@ -254,64 +330,64 @@ header:hover .menu_container nav {
   margin: auto;
 }
 
-.first_page {
+.first_page.image_separator {
   margin-top: 56px;
-  width: 100%;
-  height: 100%;
+}
+
+@media screen and (min-width: 1050px) {
+  .first_page.image_separator {
+    margin-top: 0;
+    height: 100%;
+    max-height: 100%;
+  }
 }
 
 .image_separator {
   width: 100%;
-  height: 400px;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-position: center center;
-  -webkit-background-size: 100%;
-  background-size: 100%;
+  max-height: 400px;
+  overflow: hidden;
 }
 
-.image_separator.coaching {
-  background-image: url(../images/ringblomma_cropped.jpg);
-  background-color: #81cfd2;
-}
-
-.image_separator.eq {
-  background-image: url(../images/apples_4_cropped.jpg);
-  background-color: #99b5ff;
-}
-
-.image_separator.project {
-  background-image: url(../images/tree_cropped.jpg);
-  background-color: #b7d7ff;
-}
-
-.image_separator.about {
-  background-image: url(../images/skraddar_cropped2.jpg);
-  background-position: center 20%;
-  background-color: #7ee0ad;
-}
-
-@media (max-width: 480px) {
-  header {
-    background-color: rgba(255, 255, 255, 0.9);
+@media screen and (min-width: 1050px) {
+  .image_separator {
+    height: 400px;
   }
 
-  header .header_logo {
+  html.no_parallax .image_separator {
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+  }
+
+  html.no_parallax .image_separator.coaching {
+    background-image: url(../images/ringblomma_cropped.jpg);
+    background-color: #81cfd2;
+  }
+
+  html.no_parallax .image_separator.eq {
+    background-image: url(../images/apples_4_cropped.jpg);
+    background-color: #99b5ff;
+  }
+
+  html.no_parallax .image_separator.project {
+    background-image: url(../images/tree_cropped.jpg);
+    background-color: #b7d7ff;
+  }
+
+  html.no_parallax .image_separator.about {
+    background-image: url(../images/skraddar_cropped2.jpg);
+    background-position: center 20%;
+    background-color: #7ee0ad;
+  }
+
+  html.no_parallax .image_separator .para_div {
     display: none;
   }
+}
 
-  header .tabs {
-    margin-left: 0;
-  }
-
-  header a.tab {
-    font-size: 1em;
-  }
-
-  .first_page {
-    height: 40%;
-  }
-
+@media screen and (max-width: 480px) {
   .page .header h1 {
     font-size: 2em;
   }
@@ -408,6 +484,7 @@ html.parallax .image_separator {
   position: relative;
 }
 
-.para_div {
-  display: none;
+.para_div img {
+  display: block;
+  width: 100%;
 }

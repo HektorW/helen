@@ -12,19 +12,34 @@
 }
 
 
+///////////
+// MEDIA //
+///////////
+@mobile: ~"screen and (max-width: 480px)";
+@desktop: ~"screen and (min-width: 1050px)";
+
+
 ///////////////
 // Variables //
 ///////////////
 // Header
 @header-height: 70px;
 @transition-time: 1s;
-@header-background-small: rgba(255,255,255,0.2);
-@header-background: rgba(255,255,255,0.8);
+@header-background-color: rgba(250,250,250,0.95);
+@header-menu-background-color: @header-background-color;// rgba(255,255,255,0.95);
+@header-desktop-collapsed-background-color: rgba(255,255,255,0.2);
+@header-desktop-expanded-background-color: rgba(255,255,255,0.8);
+@header-desktop-collapsed-color: #DDD;
+
+@header-link-color: #333;
+@header-logo-width: 90px;
 
 @header-font-color: #666;
 @header-title-font-size: 24px;
 @header-padding: 16px;
 @header-height: @header-title-font-size + (@header-padding*2);
+
+@menu-icon-width: 25px;
 
 // Page
 @page-background-color: #FFF;
@@ -48,6 +63,7 @@
 @col3: #B7D7FF;
 @col4: #7EE0AD;
 @col5: #90FFB1;
+
 
 
 html, body {height: 100%; margin:0;}
@@ -77,13 +93,20 @@ html, body {height: 100%; margin:0;}
 
 
 // Remove #debug
+
 body {
-  background-image: url(../images/lekfull_2_cropped_2.jpg);
-  // background-position: center center;
-  // background-size: cover;
-  background-size: 100%;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+  html.no_parallax & {
+    @media @desktop {
+      background-image: url(../images/lekfull_2_cropped_2.jpg);
+      // background-position: center center;
+      // background-size: cover;
+      background-size: 100%;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+    }
+  }
+
+  
 
   background-color: @col1;
 }
@@ -92,11 +115,6 @@ body {
 // HEADER //
 ////////////
 header {
-  /////////////////
-  // Header Vars //
-  /////////////////
-//   @link-color: #333;
-//   @logo-width: 90px;
 
   z-index: 10;
 
@@ -108,47 +126,99 @@ header {
 
   color: @header-font-color;
 
-//   height: @header-height;
-//   background-color: rgba(255,255,255,0.8);
-//   border-radius: 0;
+  box-shadow: 0px 1px 5px rgba(0,0,0,0.2);
 
-  
+  // Reset links to match inherited
   a {
     text-decoration: none;
     color: inherit;
   }
 
+  .separator {
+    position: absolute;
+    width: 0%;
+    left: 50%;
+    top: @header-height + 5;
+    color: rgba(170,170,170,0.56);
+    border-top: solid 1px;
+
+    transition: all 500ms ease;
+  }
+  &.revealed .separator {
+    width: 70%;
+    left: 15%;
+  }
+  
+  // Fixed bar on top of screen
+  // With menu button which reveals links
   #menu_link {
+    // On bigger screens we show another type
+    // moved to common media query
+    // @media @desktop {
+    //   display: none;
+    // }
+
+
+    z-index: 12;
+
+    background-color: @header-background-color;
+    // border-radius: 10px;
+
     display: block;
     width: 100%;
+    height: @header-height;
 
     text-align: center;
     font-size: @header-title-font-size;
-    padding: @header-padding;
+    // padding-top: @header-padding;
+    // padding-bottom: @header-padding;
 
     // Credit to Mr Robson - http://alwaystwisted.com/post.php?s=2012-05-12-create-a-pure-css-menu-button
     .menu_icon {
+      float: left;
       display: inline-block;
       border-bottom: 12px double; 
       border-top: 4px solid; 
       content:"";
       height: 5px; 
       width:25px;
+
+      margin-left: 1em;
+      margin-top: 16px;
+
+      transition: all 500ms ease;
     }
 
+    // Display name of page
     h2.menu_title {
-      margin: 0;
+      display: none; // IF we don't wanna show it
+      // display: inline-block;
       padding: 0;
-      display: inline-block;
+      margin: 0;
+      // margin-left: -@menu-icon-width;
       font-size: inherit;
       font-family: HelveticaNeue;
-    }    
+    }
+
+    img.header_logo {
+      height: @header-height;
+
+      // If we don't show any text we place it in the center
+      position: absolute;
+      top: 0;
+      left: 50%;
+      margin-left: -28px; // Half width of image
+
+      // float: right;
+      // margin-top: -15px;
+    }
   }
 
 
   .menu_container {
     width: 100%;
     overflow: hidden;
+    background-color: @header-menu-background-color;
 
     nav {
       max-height: 0em;
@@ -168,8 +238,46 @@ header {
     }
   }
 
-  &:hover .menu_container nav {
+  &.revealed .menu_icon {
+    transform: rotateZ(180deg);
+  }
+
+  &.revealed .menu_container nav {
     max-height: 15em;
+  }
+
+
+  @media @desktop {
+
+    text-align: center;
+
+    #menu_link {
+      display: none;
+    }
+
+    .menu_container {
+      position: absolute;
+      width: 80%;
+      left: 10%;
+
+      background-color: @header-desktop-collapsed-background-color;
+      color: @header-desktop-collapsed-color;
+
+      border-radius: 20px;
+
+      nav {
+        max-height: 100%;
+        margin-top: 0;
+
+        li {
+          display: inline;
+          border: 0;
+
+          font-family: HelveticaNeue;
+          font-size: 1em;
+        }
+      }
+    }
   }
 
 
@@ -443,53 +551,72 @@ header {
 
 
 
-
-
 // First page
 // Just a placeholder for space
-.first_page {
+.first_page.image_separator {
   margin-top: @header-height;
-  width: 100%;
-  height: 100%;
+  // width: 100%;
+  // height: 100%;
+
+  @media @desktop {
+    margin-top: 0;
+    height: 100%;
+    max-height: 100%;
+  }
 }
 
 
 // Spacing between pages
 .image_separator {
   width: 100%;
-  height: @image-separator-height;
+  max-height: @image-separator-height;
 
-  background-attachment: fixed;
-  background-repeat: no-repeat;;
-  background-position: center center;
-  // background-size: cover; 
-  background-size: 100%;
-
-  // transform: translateZ(0);
+  overflow: hidden;
 
 
-  &.coaching {
-    background-image: url(../images/ringblomma_cropped.jpg);
-    background-color: @col1;
+  @media @desktop {
+    height: @image-separator-height;
+
+    html.no_parallax & {
+      background-attachment: fixed;
+      background-repeat: no-repeat;;
+      background-position: center center;
+      // background-size: cover; 
+      background-size: 100%;
+
+      // transform: translateZ(0);
+
+      &.coaching {
+        background-image: url(../images/ringblomma_cropped.jpg);
+        background-color: @col1;
+      }
+      &.eq {
+        background-image: url(../images/apples_4_cropped.jpg); 
+        background-color: @col2;
+      }
+      &.project {
+        background-image: url(../images/tree_cropped.jpg);
+        background-color: @col3;
+      }
+      &.about {
+        background-image: url(../images/skraddar_cropped2.jpg); 
+        background-position: center 20%;
+        background-color: @col4;
+      }
+
+      .para_div {
+        display: none;
+      }
+    }
   }
-  &.eq {
-    background-image: url(../images/apples_4_cropped.jpg); 
-    background-color: @col2;
-  }
-  &.project {
-    background-image: url(../images/tree_cropped.jpg);
-    background-color: @col3;
-  }
-  &.about {
-    background-image: url(../images/skraddar_cropped2.jpg); 
-    background-position: center 20%;
-    background-color: @col4;
-  }
+
+
+  
 }
 
 
 
-@media (max-width: 480px){
+@media @mobile{
   @header-font-size: 16px;
   @header-padding: 12px;
   @header-height: @header-font-size + (@header-padding*2);
@@ -497,25 +624,25 @@ header {
   @header-background-color: rgba(255, 255, 255, 0.9);
   @header-font-color: #AAA;
 
-  header {
-    background-color: @header-background-color;
+  // header {
+  //   background-color: @header-background-color;
 
-    .header_logo {
-      display: none;
-    }
+  //   .header_logo {
+  //     display: none;
+  //   }
 
-    .tabs {
-      margin-left: 0;
-    }
+  //   .tabs {
+  //     margin-left: 0;
+  //   }
 
-    a.tab {
-      font-size: 1em;
-    }
-  }
+  //   a.tab {
+  //     font-size: 1em;
+  //   }
+  // }
 
-  .first_page {
-    height: 40%;
-  }
+  // .first_page {
+  //   height: 40%;
+  // }
 
   .page {
 
@@ -694,5 +821,10 @@ html.parallax {
 
 // Parallax images when inactivated
 .para_div {
-  display: none;
+  // display: none;
+
+  img {
+    display: block;
+    width: 100%;
+  }
 }

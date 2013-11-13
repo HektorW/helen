@@ -1,5 +1,5 @@
 $(function() {
-  var parallax = true;
+  var parallax = false;
   var enable_header_transition;
 
   if('ontouchstart' in window) {
@@ -101,6 +101,7 @@ $(function() {
   function addObject(obj) {
     if(!objs.length) {
       $('html').addClass('parallax');
+      $('html').removeClass('no_parallax');
       $(window).scroll(onScroll);
     }
 

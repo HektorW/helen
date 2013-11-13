@@ -1,8 +1,8 @@
 <!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if lt IE 7]>      <html class="no-js no_parallax lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js no_parallax lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js no_parallax lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js no_parallax"> <!--<![endif]-->
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -55,9 +55,10 @@
     <a href="#menu" id="menu_link">
       <div class="menu_icon"></div>
       <h2 class="menu_title">Helen Gson Wallin</h2>
+      <img src="images/logo_cropped.png" alt="Small logo image" class="header_logo">
     </a>
 
-    <!-- <a href="#home"><img src="images/logo_cropped.png" alt="Small logo image" class="header_logo"></a> -->
+    <div class="separator"></div>
 
     <div class="menu_container">
       <nav id="menu" class="tabs" role="navigation">
@@ -73,8 +74,10 @@
   </header>
 
 
-  <div id="home" class="first_page" data-para-id="home">
-    <img class="para_img" src="images/lekfull_2_cropped_2.jpg" alt="Parallax content image">
+  <div id="home" class="first_page image_separator" data-para-id="home" data-above-page="accessbars">
+    <div id="para-home" class="para_div">
+      <img class="para_img" src="images/lekfull_2_cropped_2.jpg" alt="Parallax content image">
+    </div>
   </div>
 
   <div class="main">
@@ -117,7 +120,7 @@
     </section>
 
 
-    <div class="image_separator coaching" data-para-id="coaching" data-scroll-speed="10">
+    <div class="image_separator coaching" data-para-id="coaching" data-above-page="coaching">
       <div id="para-coaching" class="para_div">
         <img class="para_img" src="images/ringblomma_cropped.jpg" alt="Parallax content image">
       </div>
@@ -157,7 +160,7 @@
       </div>
     </section>
 
-    <div class="image_separator eq" data-para-id="eq" data-scroll-speed="10">
+    <div class="image_separator eq" data-para-id="eq" data-above-page="eqterapi">
       <div id="para-eq" class="para_div">
         <img class="para_img" src="images/tree_cropped.jpg" alt="Parallax content image">
       </div>
@@ -198,7 +201,7 @@
       </div>
     </section>
 
-    <div class="image_separator project" data-para-id="project" data-scroll-speed="10">
+    <div class="image_separator project" data-para-id="project" data-above-page="projektledning">
       <div id="para-project" class="para_div">
         <img class="para_img" src="images/apples_4_cropped.jpg" alt="Parallax content image">
       </div>
@@ -243,7 +246,7 @@
     </section>
 
 
-    <div class="image_separator about" data-para-id="about" data-scroll-speed="10">
+    <div class="image_separator about" data-para-id="about" data-above-page="about">
       <div id="para-about" class="para_div">
         <img class="para_img" src="images/skraddar_cropped2.jpg" alt="Parallax content image">
       </div>
@@ -324,8 +327,9 @@
   <!-- Vendor -->
   <script type="text/javascript" src="bower_components/jquery/jquery.js"></script>
 
-  <!-- Own -->
+  <!-- App -->
   <script type="text/javascript" src="scripts/main.js"></script>
+  <script type="text/javascript" src="scripts/fixed_header.js"></script>
 
   <!-- Analytics -->
   <script>
