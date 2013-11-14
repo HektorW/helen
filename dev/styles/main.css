@@ -14,7 +14,7 @@ body {
   margin: 0;
 }
 
-.top_logo {
+.big_logo {
   z-index: -1;
   position: fixed;
   left: 63%;
@@ -22,11 +22,11 @@ body {
   width: 30%;
 }
 
-.top_logo img {
+.big_logo img {
   width: 100%;
 }
 
-.top_logo img.hide {
+.big_logo img.hide {
   display: none;
 }
 
@@ -34,7 +34,7 @@ body {
   background-color: #81cfd2;
 }
 
-@media screen and (min-width: 1050px) {
+@media screen and (min-width: 1090px) {
   html.no_parallax body {
     background-image: url(../images/lekfull_2_cropped_2.jpg);
     -webkit-background-size: 100%;
@@ -51,8 +51,6 @@ header {
   left: 0;
   width: 100%;
   color: #666666;
-  -webkit-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
 }
 
 header a {
@@ -67,8 +65,6 @@ header .separator {
   top: 61px;
   color: rgba(170, 170, 170, 0.56);
   border-top: solid 1px;
-  -webkit-transition: all 500ms ease;
-  transition: all 500ms ease;
 }
 
 header.revealed .separator {
@@ -77,8 +73,14 @@ header.revealed .separator {
 }
 
 header #menu_link {
+  position: relative;
   z-index: 12;
-  background-color: rgba(250, 250, 250, 0.95);
+  -webkit-transform: translateZ(10);
+  -ms-transform: translateZ(10);
+  transform: translateZ(10);
+  -webkit-box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+  background-color: #fafafa;
   display: block;
   width: 100%;
   height: 56px;
@@ -96,8 +98,6 @@ header #menu_link .menu_icon {
   width: 25px;
   margin-left: 1em;
   margin-top: 16px;
-  -webkit-transition: all 500ms ease;
-  transition: all 500ms ease;
 }
 
 header #menu_link h2.menu_title {
@@ -119,14 +119,12 @@ header #menu_link img.header_logo {
 header .menu_container {
   width: 100%;
   overflow: hidden;
-  background-color: rgba(250, 250, 250, 0.95);
-}
-
-header .menu_container nav {
-  max-height: 0em;
-  overflow: hidden;
-  -webkit-transition: all 500ms ease;
-  transition: all 500ms ease;
+  background-color: #fafafa;
+  -webkit-transform: translate3d(0, -350px, 0);
+  -ms-transform: translate3d(0, -350px, 0);
+  transform: translate3d(0, -350px, 0);
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
 }
 
 header .menu_container nav ul {
@@ -138,19 +136,27 @@ header .menu_container nav ul {
 header .menu_container nav li {
   border-bottom: solid 1px;
   padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  font-family: HelveticaNeue;
+  font-size: 1.3em;
 }
 
-header.revealed .menu_icon {
-  -webkit-transform: rotateZ(180deg);
-  -ms-transform: rotateZ(180deg);
-  transform: rotateZ(180deg);
+header .menu_container nav a {
+  display: inline-block;
+  width: 100%;
+}
+
+header.revealed .menu_container {
+  -webkit-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 header.revealed .menu_container nav {
-  max-height: 15em;
+  padding-bottom: 1.0em;
 }
 
-@media screen and (min-width: 1050px) {
+@media screen and (min-width: 1090px) {
   header {
     text-align: center;
   }
@@ -164,8 +170,10 @@ header.revealed .menu_container nav {
     width: 80%;
     left: 10%;
     background-color: rgba(255, 255, 255, 0.2);
-    color: #dddddd;
     border-radius: 20px;
+    -webkit-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 
   header .menu_container nav {
@@ -178,6 +186,28 @@ header.revealed .menu_container nav {
     border: 0;
     font-family: HelveticaNeue;
     font-size: 1em;
+  }
+
+  header .menu_container nav a {
+    display: inline;
+    color: #dddddd;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+
+  header .menu_container nav a:hover {
+    color: #ffffff;
+  }
+
+  header.expanded .menu_container {
+    width: 100%;
+    left: 0;
+    border-radius: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  header.expanded .menu_container nav a {
+    color: #333333;
   }
 }
 
@@ -334,7 +364,7 @@ header.revealed .menu_container nav {
   margin-top: 56px;
 }
 
-@media screen and (min-width: 1050px) {
+@media screen and (min-width: 1090px) {
   .first_page.image_separator {
     margin-top: 0;
     height: 100%;
@@ -348,7 +378,7 @@ header.revealed .menu_container nav {
   overflow: hidden;
 }
 
-@media screen and (min-width: 1050px) {
+@media screen and (min-width: 1090px) {
   .image_separator {
     height: 400px;
   }
