@@ -1,3 +1,23 @@
+// #TODO
+// * AccessBars scroll point in desktop
+
+// Common for both headers
+$(function() {
+  var $top_anch = $('a[href="#top_anchor"]');
+
+  $top_anch.click(function(ev) {
+
+    $.smoothScroll(0);
+    $('header').removeClass('revealed');
+
+    // $('html, body').animate({
+    //   scrollTop: 0
+    // }, 1000);
+
+    ev.preventDefault();
+  });
+});
+
 // Mobile header (collapsed menu)
 $(function() {
   'use strict';
@@ -14,26 +34,21 @@ $(function() {
     $header.toggleClass('revealed');
 
     ev.preventDefault();
-    // return false; // Prevent bubbling to body
   });
 
-  // $('.menu_container').click(function() {
-  //   return false; // Prevent bubbling to body
-  // });
-
-
-  // // 
-  // $('body').click(function() {
-  //   $header.removeClass('revealed');
-  // });
 
   $links.click(function(ev) {
     var href = $(this).attr('href'),
-        $anch = $('.image_separator[data-above-page='+href.replace('#', '')+']');
+        $anch = $('.image_separator[data-above-page='+href.replace('#', '')+']'),
+        scroll_pos = $anch.offset().top;
+
+    if(window.innerWidth < 1090)
+      scroll_pos -= (header_height-1);
 
     $header.removeClass('revealed');
 
-    $window.scrollTop($anch.offset().top - (header_height-1) /*+ 260*/ /* translate3d */);
+    $.smoothScroll(scroll_pos);
+    // $window.scrollTop( /*+ 260*/ /* translate3d */);
 
     ev.preventDefault();
   });
@@ -64,4 +79,26 @@ $(function() {
 
   $window.scroll(checkScroll);
   checkScroll();
+});
+
+
+
+
+// Smooth scroll jQuery plugin
+$(function() {
+  var $elem = $('html,body'),
+      time = 1000;
+
+
+  $.smoothScroll =
+    Modernizr.touch ? function(y) {
+      // Touch, we just jump
+      window.scrollTo(0,y);
+    } : function(y) { // No touch, we do it smooth
+
+      $elem.animate({
+        scrollTop: y,
+        easing: 'swing'
+      }, time);
+    };
 });

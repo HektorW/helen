@@ -72,6 +72,15 @@ header.revealed .separator {
   left: 15%;
 }
 
+header img.header_logo {
+  height: 56px;
+  z-index: 15;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -28px;
+}
+
 header #menu_link {
   position: relative;
   z-index: 12;
@@ -106,14 +115,6 @@ header #menu_link h2.menu_title {
   margin: 0;
   font-size: inherit;
   font-family: HelveticaNeue;
-}
-
-header #menu_link img.header_logo {
-  height: 56px;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  margin-left: -28px;
 }
 
 header .menu_container {
@@ -159,6 +160,10 @@ header.revealed .menu_container nav {
 @media screen and (min-width: 1090px) {
   header {
     text-align: center;
+  }
+
+  header .header_logo {
+    display: none;
   }
 
   header #menu_link {
@@ -245,6 +250,9 @@ header.revealed .menu_container nav {
 
 .page .content h2,
 .page .content h3 {
+  font-family: HelveticaNeue;
+  font-weight: 300;
+  font-size: 1.5em;
   max-width: 480px;
   margin-left: auto;
   margin-right: auto;
@@ -494,20 +502,17 @@ html.parallax body {
 
 html.parallax .para_div {
   display: block;
-  position: fixed;
-}
-
-html.parallax .first_page {
+  visibility: hidden;
   overflow: hidden;
-  z-index: -5;
+  width: 100%;
 }
 
 html.parallax .para_img {
-  position: absolute;
   width: 100%;
 }
 
 html.parallax .image_separator {
+  z-index: -1;
   background-image: none;
   background-color: transparent;
   overflow: hidden;

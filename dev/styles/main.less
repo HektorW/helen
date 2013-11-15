@@ -1,3 +1,9 @@
+// #TODO
+// 
+// * 1050px size dimension gives some other styles
+//   Should probably be altered to @desktop or other
+// * Fonts
+
 
 ///////////
 // Fonts //
@@ -96,8 +102,12 @@ html, body {height: 100%; margin:0;}
 // Remove #debug
 
 body {
-  html.no_parallax & {
-    @media @desktop {
+  background-color: @col1;
+
+
+
+  @media @desktop {
+    html.no_parallax & {
       background-image: url(../images/lekfull_2_cropped_2.jpg);
       // background-position: center center;
       // background-size: cover;
@@ -106,10 +116,6 @@ body {
       background-repeat: no-repeat;
     }
   }
-
-  
-
-  background-color: @col1;
 }
 
 ////////////
@@ -148,6 +154,21 @@ header {
   &.revealed .separator {
     width: 70%;
     left: 15%;
+  }
+
+  img.header_logo {
+    height: @header-height;
+
+    z-index: 15;
+
+    // If we don't show any text we place it in the center
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -28px; // Half width of image
+
+    // float: right;
+    // margin-top: -15px;
   }
   
   // Fixed bar on top of screen
@@ -204,18 +225,7 @@ header {
       font-family: HelveticaNeue;
     }
 
-    img.header_logo {
-      height: @header-height;
-
-      // If we don't show any text we place it in the center
-      position: absolute;
-      top: 0;
-      left: 50%;
-      margin-left: -28px; // Half width of image
-
-      // float: right;
-      // margin-top: -15px;
-    }
+    
   }
 
 
@@ -274,6 +284,10 @@ header {
   @media @desktop {
 
     text-align: center;
+
+    .header_logo {
+      display: none;
+    }
 
     #menu_link {
       display: none;
@@ -459,7 +473,10 @@ header {
     padding: 40px;
   
     h2, h3 {
-      // margin-left: 17%;
+      font-family: HelveticaNeue;
+      font-weight: 300;
+      font-size: 1.5em;      
+
       max-width: @p-max-width;
       margin-left: auto;
       margin-right: auto;
@@ -843,11 +860,12 @@ html.parallax {
   .para_div {
 
     display: block;
-    position: fixed;
-  //   visibility: hidden;
-  //   overflow: hidden;
+    // position: fixed;
+    visibility: hidden;
+    overflow: hidden;
 
-  //   width: 100%;
+    width: 100%;
+
 
   //   z-index: -1;
 
@@ -856,17 +874,19 @@ html.parallax {
   //   }
   }
 
-  .first_page {
-    overflow: hidden;
-    z-index: -5;
-  }
+  // .first_page {
+  //   overflow: hidden;
+  //   z-index: -5;
+  // }
 
   .para_img {
-    position: absolute;
+    // position: absolute;
     width: 100%;
   }
 
   .image_separator {
+    z-index: -1;
+
     background-image: none; 
     background-color: transparent;
 
