@@ -1,7 +1,14 @@
+// #TODO
+// 
+// * Listen to window size change and update vars
+
 // Setup
 $(function() {
   // Decide if we should parallax
   var parallax = true;
+
+  if(window.innerWidth < 800) // Find some nice break value, Also uodate on window size change
+    parallax = false;
 
   if(parallax) {
     $('.image_separator').parallax();
@@ -35,10 +42,10 @@ $(function() {
 
 
       $t.check = function(scrollValue) {
-        $('.debug').html(
-          $('.debug').html() + '<br>' +
-          bounds.startY + ', ' + bounds.endY
-        );
+        // $('.debug').html(
+        //   $('.debug').html() + '<br>' +
+        //   bounds.startY + ', ' + bounds.endY
+        // );
 
         var upperY = scrollValue,
             windowH = window.innerHeight,

@@ -190,7 +190,8 @@ header.revealed .menu_container nav {
     display: inline;
     border: 0;
     font-family: HelveticaNeue;
-    font-size: 1em;
+    margin-right: 20px;
+    font-size: 2em;
   }
 
   header .menu_container nav a {
@@ -213,6 +214,10 @@ header.revealed .menu_container nav {
 
   header.expanded .menu_container nav a {
     color: #333333;
+  }
+
+  header.expanded .menu_container nav a:hover {
+    color: #b3b3b3;
   }
 }
 

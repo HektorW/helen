@@ -308,12 +308,16 @@ header {
         max-height: 100%;
         margin-top: 0;
 
+        // margin-top: 10px;
+
         li {
           display: inline;
           border: 0;
 
           font-family: HelveticaNeue;
-          font-size: 1em;
+
+          margin-right: 20px;
+          font-size: 2em;
         }
         a {
           display: inline;
@@ -344,6 +348,9 @@ header {
 
           a {
             color: @header-desktop-expanded-color;
+            &:hover {
+              color: lighten(@header-desktop-expanded-color, 50%);
+            }
           }
         }
       }
