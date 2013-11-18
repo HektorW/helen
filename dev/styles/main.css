@@ -412,23 +412,19 @@ header.revealed .menu_container nav {
 
   html.no_parallax .image_separator.coaching {
     background-image: url(../images/plankor.jpg);
-    background-color: #81cfd2;
   }
 
   html.no_parallax .image_separator.eq {
     background-image: url(../images/plants.jpg);
-    background-color: #99b5ff;
   }
 
   html.no_parallax .image_separator.project {
     background-image: url(../images/stenar2.jpg);
-    background-color: #b7d7ff;
   }
 
   html.no_parallax .image_separator.about {
     background-image: url(../images/skraddar_cropped2.jpg);
     background-position: center 20%;
-    background-color: #7ee0ad;
   }
 
   html.no_parallax .image_separator .para_div {
@@ -516,6 +512,9 @@ html.parallax .para_div {
   visibility: hidden;
   overflow: hidden;
   width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 html.parallax .para_img {
@@ -533,4 +532,11 @@ html.parallax .image_separator {
 .para_div img {
   display: block;
   width: 100%;
+}
+
+#D {
+  position: fixed;
+  z-index: 100;
+  background-color: white;
+  color: black;
 }

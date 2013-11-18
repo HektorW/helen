@@ -691,20 +691,20 @@ header {
 
       &.coaching {
         background-image: url(../images/plankor.jpg);
-        background-color: @col1;
+        // background-color: @col1;
       }
       &.eq {
         background-image: url(../images/plants.jpg); 
-        background-color: @col2;
+        // background-color: @col2;
       }
       &.project {
         background-image: url(../images/stenar2.jpg);
-        background-color: @col3;
+        // background-color: @col3;
       }
       &.about {
         background-image: url(../images/skraddar_cropped2.jpg); 
         background-position: center 20%;
-        background-color: @col4;
+        // background-color: @col4;
       }
 
       .para_div {
@@ -888,20 +888,16 @@ html.parallax {
 
   // Parallax - CSS
   .para_div {
-
     display: block;
-    // position: fixed;
     visibility: hidden;
     overflow: hidden;
 
     width: 100%;
 
-
-  //   z-index: -1;
-
-  //   .para_img {
-  //     width: 100%;
-  //   }
+  
+    position: fixed;
+    top: 0;
+    left: 0;
   }
 
   // .first_page {
@@ -933,4 +929,18 @@ html.parallax {
     display: block;
     width: 100%;
   }
+}
+
+
+
+
+
+
+
+// DEBUG-element
+#D {
+  position: fixed;
+  z-index: 100;
+  background-color: white;
+  color: black;
 }
