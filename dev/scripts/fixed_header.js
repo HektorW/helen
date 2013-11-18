@@ -91,7 +91,7 @@ $(function() {
 
 
   $.smoothScroll =
-    Modernizr.touch ? function(y) {
+    Modernizr.touch && false ? function(y) {
       // Touch, we just jump
       window.scrollTo(0,y);
     } : function(y) { // No touch, we do it smooth

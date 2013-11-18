@@ -156,7 +156,7 @@ header {
     left: 15%;
   }
 
-  img.header_logo {
+  .header_logo {
     height: @header-height;
 
     z-index: 15;
@@ -285,8 +285,14 @@ header {
 
     text-align: center;
 
-    .header_logo {
-      display: none;
+    img.header_logo {
+      display: block;
+      position: fixed;
+      height: 400px;
+      left: 60%;
+      top: 10%;
+
+      // transition: all 0.5s ease;
     }
 
     #menu_link {
@@ -334,6 +340,14 @@ header {
 
     // When scrolled a bit the header is expanded
     &.expanded {
+      .header_logo {
+        display: block;
+
+        height: @header-height;
+        top: 5px;
+        left: 40px;
+      }
+
       .menu_container {
         width: 100%;
         left: 0;
@@ -477,18 +491,21 @@ header {
     // @p-max-width: @p-font-size*30;
 
     font-family: garamond;
+    // font-family: Lora;
+    font-weight: 400;
     padding: 40px;
   
     h2, h3 {
       font-family: HelveticaNeue;
-      font-weight: 300;
-      font-size: 1.5em;      
+      // font-family: Lora;
+      font-weight: 400;
+      font-size: 1.7em;      
 
       max-width: @p-max-width;
       margin-left: auto;
       margin-right: auto;
       &::first-letter {
-        font-size: 1.5em;
+        // font-size: 1.5em;
       }
     }
 
@@ -506,24 +523,30 @@ header {
       display: block;
       max-width: @p-max-width;
       margin: auto;
-      font: italic 1em Georgia, Times, serif;
-      color: #999999;
 
-      p {
-        margin: 0;
-        font: normal 1em garamond;
-        color: black;
+      list-style: none;
+      padding-left: 20px;
+
+      li {
+        // margin-bottom: 10px;
+
+        &:before {
+          font-family: BergamotOrnaments;
+          content: "Z";
+          margin: 0 5px 0 -15px;
+        }
       }
 
-      li::first-letter {
-        font-weight: bold;
+      p {
+        display: inline;
+        // margin-left: 10px;
       }
     }
 
     // Emphasis
     strong {
       color: #333;
-      font-style: italic;
+      // font-style: italic;
     }
 
     .first_letter {
@@ -667,15 +690,15 @@ header {
       // transform: translateZ(0);
 
       &.coaching {
-        background-image: url(../images/ringblomma_cropped.jpg);
+        background-image: url(../images/plankor.jpg);
         background-color: @col1;
       }
       &.eq {
-        background-image: url(../images/apples_4_cropped.jpg); 
+        background-image: url(../images/plants.jpg); 
         background-color: @col2;
       }
       &.project {
-        background-image: url(../images/tree_cropped.jpg);
+        background-image: url(../images/stenar2.jpg);
         background-color: @col3;
       }
       &.about {

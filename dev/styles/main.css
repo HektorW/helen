@@ -72,7 +72,7 @@ header.revealed .separator {
   left: 15%;
 }
 
-header img.header_logo {
+header .header_logo {
   height: 56px;
   z-index: 15;
   position: absolute;
@@ -162,8 +162,12 @@ header.revealed .menu_container nav {
     text-align: center;
   }
 
-  header .header_logo {
-    display: none;
+  header img.header_logo {
+    display: block;
+    position: fixed;
+    height: 400px;
+    left: 60%;
+    top: 10%;
   }
 
   header #menu_link {
@@ -203,6 +207,13 @@ header.revealed .menu_container nav {
 
   header .menu_container nav a:hover {
     color: #ffffff;
+  }
+
+  header.expanded .header_logo {
+    display: block;
+    height: 56px;
+    top: 5px;
+    left: 40px;
   }
 
   header.expanded .menu_container {
@@ -250,22 +261,18 @@ header.revealed .menu_container nav {
 
 .page .content {
   font-family: garamond;
+  font-weight: 400;
   padding: 40px;
 }
 
 .page .content h2,
 .page .content h3 {
   font-family: HelveticaNeue;
-  font-weight: 300;
-  font-size: 1.5em;
+  font-weight: 400;
+  font-size: 1.7em;
   max-width: 480px;
   margin-left: auto;
   margin-right: auto;
-}
-
-.page .content h2::first-letter,
-.page .content h3::first-letter {
-  font-size: 1.5em;
 }
 
 .page .content p {
@@ -280,23 +287,22 @@ header.revealed .menu_container nav {
   display: block;
   max-width: 480px;
   margin: auto;
-  font: italic 1em Georgia, Times, serif;
-  color: #999999;
+  list-style: none;
+  padding-left: 20px;
+}
+
+.page .content ul li:before {
+  font-family: BergamotOrnaments;
+  content: "Z";
+  margin: 0 5px 0 -15px;
 }
 
 .page .content ul p {
-  margin: 0;
-  font: normal 1em garamond;
-  color: black;
-}
-
-.page .content ul li::first-letter {
-  font-weight: bold;
+  display: inline;
 }
 
 .page .content strong {
   color: #333;
-  font-style: italic;
 }
 
 .page .content .first_letter {
@@ -405,17 +411,17 @@ header.revealed .menu_container nav {
   }
 
   html.no_parallax .image_separator.coaching {
-    background-image: url(../images/ringblomma_cropped.jpg);
+    background-image: url(../images/plankor.jpg);
     background-color: #81cfd2;
   }
 
   html.no_parallax .image_separator.eq {
-    background-image: url(../images/apples_4_cropped.jpg);
+    background-image: url(../images/plants.jpg);
     background-color: #99b5ff;
   }
 
   html.no_parallax .image_separator.project {
-    background-image: url(../images/tree_cropped.jpg);
+    background-image: url(../images/stenar2.jpg);
     background-color: #b7d7ff;
   }
 

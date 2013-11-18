@@ -5,7 +5,7 @@
 // Setup
 $(function() {
   // Decide if we should parallax
-  var parallax = true;
+  var parallax = !Modernizr.touch;
 
   if(window.innerWidth < 800) // Find some nice break value, Also uodate on window size change
     parallax = false;
