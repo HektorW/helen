@@ -42,6 +42,11 @@ $(function() {
         $anch = $('.image_separator[data-above-page='+href.replace('#', '')+']'),
         scroll_pos = $anch.offset().top;
 
+    // Hard fix for top
+    if(href === '#accessbars') {
+      scroll_pos = $(href).offset().top - 400;
+    }
+
     if(window.innerWidth < 1090)
       scroll_pos -= (header_height-1);
 

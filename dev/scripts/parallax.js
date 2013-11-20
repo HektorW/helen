@@ -1,11 +1,12 @@
 // #TODO
 // 
 // * Listen to window size change and update vars
+// * Resize top image and logo
 
 // Setup
 $(function() {
   // Decide if we should parallax
-  var parallax = !Modernizr.touch;
+  var parallax = !Modernizr.touch && Modernizr.csstransforms3d;
 
   if(window.innerWidth < 800) // Find some nice break value, Also uodate on window size change
     parallax = false;
@@ -173,7 +174,7 @@ $(function() {
 
           var top = self.bounds.top - scroll_value;
 
-          top -= 10;
+          top -= 100;
 
           self.div_top = top;
           self.img_top = top - (top / settings.speed);
