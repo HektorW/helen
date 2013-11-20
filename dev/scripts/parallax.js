@@ -5,32 +5,27 @@
 
 // Setup
 $(function() {
-  // Decide if we should parallax
-  var parallax = !Modernizr.touch && Modernizr.csstransforms3d;
+  // // Decide if we should parallax
+  // var parallax = !Modernizr.touch && Modernizr.csstransforms3d;
 
-  if(window.innerWidth < 800) // Find some nice break value, Also uodate on window size change
-    parallax = false;
+  // var aspect = window.innerWidth / window.innerHeight;
 
-  if(parallax) {
+  // DEBUG('aspect', aspect);
+
+  // if(aspect < 1 || window.innerWidth < 1090) 
+  //   parallax = false;
+
+  // if(window.innerWidth < 800) // Find some nice break value, Also uodate on window size change
+  //   parallax = false; 
+
+  if($.fn.parallax.isSupported()) {
     $('.image_separator').parallax();
-  }
-  else {
   }
 
 });
 
 // Parallax plugin
 (function($) {
-  function calc() {
-    setTimeout(function() {
-      jQuery.each(parallax_objects, function(i, v) {
-        v.calculateValues();
-      });
-      DEBUG('calculated', '');
-    },300);
-  }
-  calc();
-
   // Plugin vars
   // ===================
       // Flag for if we have scheduled a repaint with rAF
@@ -41,11 +36,12 @@ $(function() {
       parallax_objects = [],
       // Contains values that are common for all parallax objects
       // currently #unused
-      values = {};
+      values = {},
+      parallaxing = false;
 
   // #DEBUG
   window.PARA = parallax_objects;
-  window.calc = calc;
+  window.calc = calculateValues;
 
   // Fix requestAnimationFrame
   var requestAnimationFrame =
@@ -217,19 +213,76 @@ $(function() {
   // ===================
 
 
+  // $.fn.parallax.isSupported
+  // ===================
+  // Test for if parallax should be used
+  $.fn.parallax.isSupported = function() {
+    var aspect = window.innerWidth / window.innerHeight;
+
+    if(aspect < 1 || window.innerWidth < 1090 || Modernizr.touch || !Modernizr.csstransforms3d) 
+      return false;
+    return true;
+  };
+  // End $.fn.parallax.isSupported
+  // ===================
+
+
+  // calculateValues
+  // ===================  
+  function calculateValues() {
+    jQuery.each(parallax_objects, function(i, v) {
+      v.calculateValues();
+    });
+  }
+  // End calculateValues
+  // ===================
+  // #FIX
+  // It takes some time for document to get right dimensions
+  setTimeout(calculateValues, 300);
+
+  function startParallax() {
+    $('html').addClass('parallax');
+    $('html').removeClass('no_parallax');
+    $(window).on('scroll', onScroll);
+    parallaxing = true;
+  }
+  function stopParallax() {
+    $('html').removeClass('parallax');
+    $('html').addClass('no_parallax');
+    $(window).off('scroll', onScroll);
+    $('.para_div').css('visibility', 'visible');
+    parallaxing = false;
+  }
   
 
   function addParallaxObject(parallax_obj) {
     if(!parallax_objects.length) {
-      $('html').addClass('parallax');
-      $('html').removeClass('no_parallax');
-      $(window).scroll(onScroll);
+      $(window).on('resize', onResize);
+      startParallax();
+      // $('html').addClass('parallax');
+      // $('html').removeClass('no_parallax');
+      // $(window).scroll(onScroll);
     }
 
     parallax_objects.push(parallax_obj);
     requestRepaint();
   }
-  function onScroll(ev) {
+
+  function onResize() {
+
+    if($.fn.parallax.isSupported()) {
+      if(!parallaxing)
+        startParallax();
+
+      calculateValues();
+    }
+    else {
+      if(parallaxing)
+        stopParallax();
+    }
+  }
+
+  function onScroll() {
     lastScrollValue = window.pageYOffset;
     requestRepaint();
   }

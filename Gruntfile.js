@@ -23,6 +23,7 @@
 // "grunt-contrib-htmlmin": "~0.1.3"     // Minify html? usefull? WHAT DO YOU DO?!
 //      app.dev/*.html
 // "grunt-contrib-imagemin": "~0.2.0",   // Minify images?
+//      TROUBLE INSTALLING
 //      images
 // "grunt-rev": "~0.1.0",                // Revision names for files?  CDN
 //      script
@@ -138,6 +139,68 @@ module.exports = function(grunt) {
           ]
         }]
       }
+    },
+
+    uglify: {
+      dist: {
+        options: {
+          report: 'gzip'
+        },
+
+        files : {
+          '<%= app.dist %>/scripts/main.min.js': [
+            '<%= app.dev %>/scripts/parallax.js',
+            '<%= app.dev &>/scripts/fixed_header.js'
+          ]  
+        }
+      }
+    },
+
+    htmlmin: {
+      dist: {
+        options: {
+          /*removeCommentsFromCDATA: true,
+          // https://github.com/yeoman/grunt-usemin/issues/44
+          //collapseWhitespace: true,
+          collapseBooleanAttributes: true,
+          removeAttributeQuotes: true,
+          removeRedundantAttributes: true,
+          useShortDoctype: true,
+          removeEmptyAttributes: true,
+          removeOptionalTags: true*/
+        },
+        files: [{
+          expand: true,
+          cwd: '<%= app.dev %>',
+          src: '*.html',
+          dest: '<%= app.dist %>'
+        }]
+      }
+    },
+
+    copy: {
+      dist: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: '<%= app.dev %>',
+          dest: '<%= app.dist %>',
+          src: [
+            'logo.ico',
+            'images/*.{jpg,png}',
+            'styles/fonts/*.*'
+          ]
+        }]
+      }
+    },
+
+    cssmin: {
+      dist: {
+        cwd: '<%= app.dist %>/styles/',
+        src: [ '*.css' ],
+        dest: '<%= app.dist %>/styles/',
+        ext: 'min.css'
+      }
     }
   });
 
@@ -159,7 +222,11 @@ module.exports = function(grunt) {
   grunt.registerTask('dist', [
     'clean:dist',
     'less:dist',
-    'autoprefixer:dist'
+    'autoprefixer:dist',
+    'uglify:dist',
+    'htmlmin:dist',
+    'copy:dist',
+    'cssmin:dist'
   ]);
 
   grunt.registerTask('default', [

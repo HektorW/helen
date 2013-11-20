@@ -21,7 +21,9 @@
 ///////////
 // MEDIA //
 ///////////
+@small: ~"screen and (max-width: 320px)";
 @mobile: ~"screen and (max-width: 480px)";
+@medium: ~"screen and (min-width: 1000px)";
 @desktop: ~"screen and (min-width: 1090px)";
 
 
@@ -720,7 +722,7 @@ header {
 
 
 
-@media @mobile{
+@media @mobile {
   @header-font-size: 16px;
   @header-padding: 12px;
   @header-height: @header-font-size + (@header-padding*2);
@@ -728,31 +730,11 @@ header {
   @header-background-color: rgba(255, 255, 255, 0.9);
   @header-font-color: #AAA;
 
-  // header {
-  //   background-color: @header-background-color;
-
-  //   .header_logo {
-  //     display: none;
-  //   }
-
-  //   .tabs {
-  //     margin-left: 0;
-  //   }
-
-  //   a.tab {
-  //     font-size: 1em;
-  //   }
-  // }
-
-  // .first_page {
-  //   height: 40%;
-  // }
 
   .page {
-
     .header {
       h1 {
-        font-size: 2em;
+        font-size: 3em;
       }
     }
 
@@ -760,8 +742,6 @@ header {
     #contact {
       width: 300px;
       border-radius: 20px;
-
-      // height: 200px;
     }
   }
 
@@ -771,13 +751,24 @@ header {
 }
 
 
+@media @small {
+  .page {
+    .header {
+      h1 {
+        font-size: 2em;
+      }
+    }
+  }
+}
+
 
 
 
 /////////////////
 // MEDIA-Query //
 /////////////////
-@media screen and (min-width: 1050px) {
+// @media screen and (min-width: 1050px) {
+@media @medium {
   @page-header-width: 35%;
   @page-header-max-width: 480px;
   @page-min-height: 500px;
@@ -925,6 +916,7 @@ html.parallax {
 // Parallax images when inactivated
 .para_div {
   // display: none;
+  visibility: visible;
 
   img {
     display: block;
