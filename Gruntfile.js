@@ -148,10 +148,15 @@ module.exports = function(grunt) {
         },
 
         files : {
-          '<%= app.dist %>/scripts/main.min.js': [
-            '<%= app.dev %>/scripts/parallax.js',
-            '<%= app.dev &>/scripts/fixed_header.js'
-          ]  
+          'dist/scripts/parallax.js': [ 'dev/scripts/parallax.js' ],
+          'dist/scripts/fixed_header.js': [ 'dev/scripts/fixed_header.js' ]
+
+          // '<%= app.dist %>/scripts/parallax.js': [ '<%= app.dev %>/scripts/parallax.js' ],
+          // '<%= app.dist %>/scripts/fixed_header.js': [ '<%= app.dev %>/scripts/fixed_header.js' ]
+          // '<%= app.dist %>/scripts/main.min.js': [
+          //   '<%= app.dev %>/scripts/parallax.js',
+          //   '<%= app.dev &>/scripts/fixed_header.js'
+          // ]  
         }
       }
     },
@@ -188,7 +193,11 @@ module.exports = function(grunt) {
           src: [
             'logo.ico',
             'images/*.{jpg,png}',
-            'styles/fonts/*.*'
+            'styles/fonts/*.*',
+            // #TEMP
+            // Should be fixed in some other way
+            'bower_components/jquery/jquery.min.js',
+            'bower_components/modernizr/modernizr.js'
           ]
         }]
       }

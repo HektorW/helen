@@ -20,12 +20,11 @@ $(function() {
 
 // Mobile header (collapsed menu)
 $(function() {
-  'use strict';
+  // 'use strict';
 
   var $header = $('header'),
       $menu_link = $('#menu_link'),
       $links = $header.find('nav#menu a'),
-      $window = $(window),
       header_height = $header.outerHeight();
 
   header_height = 56;
@@ -65,7 +64,6 @@ $(function() {
 
   var $window = $(window),
       $header = $('header'),
-      $big_logo = $('big_logo'),
       logo_height = 340, // Static value
       logo_top = window.innerHeight * 0.2, // Static value
       trigger_point = logo_top + logo_height,
@@ -94,12 +92,12 @@ $(function() {
   var $elem = $('html,body'),
       time = 1000;
 
+  // Modernizr.touch && false ? function(y) {
+  //       // Touch, we just jump
+  //       window.scrollTo(0,y);
+  //     } :
 
-  $.smoothScroll =
-    Modernizr.touch && false ? function(y) {
-      // Touch, we just jump
-      window.scrollTo(0,y);
-    } : function(y) { // No touch, we do it smooth
+  $.smoothScroll = function(y) { // No touch, we do it smooth
 
       $elem.animate({
         scrollTop: y,
@@ -107,3 +105,4 @@ $(function() {
       }, time);
     };
 });
+
